@@ -27,7 +27,7 @@ jobs:
           npm install -g newman-reporter-htmlextra
           
       - name: run Tests
-        run: newman run "Rest API CRUD Operations.postmanCollection.json.json" -e "New API Environment.postmanEnvironment.json" -r cli,htmlextra --reporter htmlextra --reporter-htmlextra-export testArtifacts/htmlreports.html
+        run: newman run "Rest API CRUD Operations.postmanCollection.json.json" -e "New API Environment.postmanEnvironment.json" --reporters cli,htmlextra --reporter-htmlextra-export testArtifacts/htmlreports.html
         
       - name: output results
         uses: actions/upload-artifact@v4
