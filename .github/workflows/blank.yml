@@ -19,28 +19,28 @@ jobs:
    
     steps:
     
-      - uses: actions/checkout@v3
-      - name: create dir
+    - uses: actions/checkout@v3
+    - name: create dir
           run:|
               mkdir TestArtifact
 
  
-      - name: install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '21'
+    - name: install Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '21'
 
   
-      - name: install Newman
-        run: |
+    - name: install Newman
+      run: |
           npm install -g newman
           npm install -g newman-reporter-htmlextra
           
-      - name: run Tests
-        run: newman run "Rest API CRUD Operations.postmanCollection.json.json" -e "New API Environment.postmanEnvironment.json" -r cli,htmlextra --reporter -htmlextra-export testArtifacts/htmlreports.html
-      - name: output results
-        uses: actions/upload-artifacts@v3
-        with:
+    - name: run Tests
+      run: newman run "Rest API CRUD Operations.postmanCollection.json.json" -e "New API Environment.postmanEnvironment.json" -r cli,htmlextra --reporter -htmlextra-export testArtifacts/htmlreports.html
+    - name: output results
+      uses: actions/upload-artifacts@v3
+      with:
           name: Reports
           path: testArtifacts
           
