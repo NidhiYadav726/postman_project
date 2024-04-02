@@ -1,47 +1,36 @@
-
-
-name: API Test usin Newman CLI
-
+name: API Test using Newman CLI
 
 on:
   - pull_request
   - push
   - workflow_dispatch
 
-
-
 jobs:
-  
   testapi:
-   
     runs-on: ubuntu-latest
 
-   
     steps:
-    
-    - uses: actions/checkout@v3
-    - name: create dir
-          run:|
-              mkdir TestArtifact
+      - uses: actions/checkout@v3
 
- 
-    - name: install Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '21'
+      - name: create directory
+        run: |
+          mkdir TestArtifacts
 
-  
-    - name: install Newman
-      run: |
+      - name: install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: install Newman
+        run: |
           npm install -g newman
           npm install -g newman-reporter-htmlextra
           
-    - name: run Tests
-      run: newman run "Rest API CRUD Operations.postmanCollection.json.json" -e "New API Environment.postmanEnvironment.json" -r cli,htmlextra --reporter -htmlextra-export testArtifacts/htmlreports.html
-    - name: output results
-      uses: actions/upload-artifacts@v3
-      with:
+      - name: run Tests
+        run: newman run "Rest API CRUD Operations.postmanCollection.json.json" -e "New API Environment.postmanEnvironment.json" -r cli,htmlextra --reporter htmlextra --reporter-htmlextra-export testArtifacts/htmlreports.html
+        
+      - name: output results
+        uses: actions/upload-artifact@v3
+        with:
           name: Reports
           path: testArtifacts
-          
-      
